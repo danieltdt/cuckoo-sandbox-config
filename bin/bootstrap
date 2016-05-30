@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# bootstrap <cucoo-dir>
+
+set -e          # fail fast
+set -o pipefail # fail through pipe
+# set -x
+
+config_dir=$(cd $(dirname $0); cd ..; pwd)
+source $config_dir/common.sh
+
+cuckoo_dir=${1:-$DEFAULT_CUCKOO_DIR}
+python2=`which python2.7`
+
+cd $cuckoo_dir
+
+say "copying config files to $cuckoo_dir"
+cp $config_dir/conf/*.conf "$cuckoo_dir/conf/"
+
+say "installing virtualenv on $cuckoo_dir"
+virtualenv -p $python2 venv | indent
+
+# enter virtualenv
+source venv/bin/activate
+
+say "installing dependencies"
+pip install -q -r requirements.txt | indent
+pip install -q vmcloak --upgrade | indent
+
+# exit virtualenv
+deactivate
