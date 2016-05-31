@@ -25,8 +25,13 @@ echo
 echo "Remember: you must have ISO file"
 echo "read more at http://jbremer.org/vmcloak3/"
 echo
+
 vmcloak-vboxnet0
+
+say "vmcloak init $vmcloak_init_args"
 vmcloak init $vmcloak_init_args | indent
+
+say "vmcloak install $vmcloak_install_args"
 vmcloak install $vmcloak_install_args | indent
 
 
