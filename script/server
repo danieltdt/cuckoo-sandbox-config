@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# setup <cucoo-dir>
+# server <cucoo-dir>
 
 set -e          # fail fast
 set -o pipefail # fail through pipe
@@ -10,17 +10,15 @@ source $config_dir/script/common.sh
 
 cuckoo_dir=${1:-$DEFAULT_CUCKOO_DIR}
 
-say "bootstraping"
-$config_dir/script/bootstrap
+say "updating"
+$config_dir/script/update
 
 cd $cuckoo_dir
 
 # enter virtualenv
 source venv/bin/activate
 
-echo
-say "TODO: create a VM automagically"
-echo
+python cuckoo.py
 
 # exit virtualenv
 deactivate

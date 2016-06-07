@@ -10,6 +10,8 @@ source $config_dir/script/common.sh
 
 cuckoo_dir=${1:-$DEFAULT_CUCKOO_DIR}
 
+say "bootstraping"
+$config_dir/script/bootstrap
+
 cd $cuckoo_dir
 
-$config_dir/script/bootstrap
