@@ -6,7 +6,7 @@ set -o pipefail # fail through pipe
 # set -x
 
 config_dir=$(cd $(dirname $0); cd ..; pwd)
-source $config_dir/common.sh
+source $config_dir/script/common.sh
 
 cuckoo_dir=${1:-$DEFAULT_CUCKOO_DIR}
 python2=`which python2.7`

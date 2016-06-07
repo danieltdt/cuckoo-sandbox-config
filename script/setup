@@ -6,14 +6,14 @@ set -o pipefail # fail through pipe
 # set -x
 
 config_dir=$(cd $(dirname $0); cd ..; pwd)
-source $config_dir/common.sh
+source $config_dir/script/common.sh
 
 cuckoo_dir=${1:-$DEFAULT_CUCKOO_DIR}
 
 cd $cuckoo_dir
 
 say "bootstraping"
-$config_dir/bin/bootstrap
+$config_dir/script/bootstrap
 
 # enter virtualenv
 source venv/bin/activate
