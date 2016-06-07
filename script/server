@@ -18,6 +18,10 @@ cd $cuckoo_dir
 # enter virtualenv
 source venv/bin/activate
 
+say "running services"
+systemctl restart mongodb.service
+
+say "running cuckoo"
 python cuckoo.py
 
 # exit virtualenv
