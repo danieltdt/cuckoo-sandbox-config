@@ -34,8 +34,10 @@ cp $config_dir/conf/*.conf "$cuckoo_dir/conf/"
 say "installing virtualenv"
 sudo pacman --needed --noconfirm -S python-virtualenv | indent
 
-say "creating virtualenv on $cuckoo_dir/venv"
-virtualenv -p $python2 venv | indent
+if ! (test -d $cuckoo_dir/venv); then
+  say "creating virtualenv on $cuckoo_dir/venv"
+  virtualenv -p $python2 venv | indent
+fi
 
 # enter virtualenv
 source venv/bin/activate
