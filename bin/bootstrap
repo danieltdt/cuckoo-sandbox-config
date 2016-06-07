@@ -24,7 +24,6 @@ source venv/bin/activate
 
 say "installing dependencies"
 pip install -q -r requirements.txt | indent
-pip install -q vmcloak --upgrade | indent
 
 # exit virtualenv
 deactivate

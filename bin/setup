@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# setup <cucoo-dir> <vmcloak-init-args> <vmcloak-install-args>
+# setup <cucoo-dir>
 
 set -e          # fail fast
 set -o pipefail # fail through pipe
@@ -9,8 +9,6 @@ config_dir=$(cd $(dirname $0); cd ..; pwd)
 source $config_dir/common.sh
 
 cuckoo_dir=${1:-$DEFAULT_CUCKOO_DIR}
-vmcloak_init_args=${2:---tempdir $cuckoo_dir/tmp --win7 seven0}
-vmcloak_install_args=${3:-seven0 adobe9 wic pillow dotnet40 java7 flash}
 
 cd $cuckoo_dir
 
@@ -20,20 +18,7 @@ $config_dir/bin/bootstrap
 # enter virtualenv
 source venv/bin/activate
 
-say "creating vm (this may take a while)"
-echo
-echo "Remember: you must have ISO file"
-echo "read more at http://jbremer.org/vmcloak3/"
-echo
-
-vmcloak-vboxnet0
-
-say "vmcloak init $vmcloak_init_args"
-vmcloak init $vmcloak_init_args | indent
-
-say "vmcloak install $vmcloak_install_args"
-vmcloak install $vmcloak_install_args | indent
-
+say "create a VM using VirtualBox ui"
 
 # exit virtualenv
 deactivate
