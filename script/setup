@@ -15,6 +15,14 @@ $config_dir/script/bootstrap
 
 say "installing dependencies"
 sudo pacman --needed --noconfirm -S tcpdump tesseract tesseract-data-por tesseract-data-eng mongodb
+if ! groups $USER | \grep "pcap"; then
+  say "add tcpdump permissions for current user"
+  sudo groupadd pcap
+  sudo usermod -aG pcap $USER
+  sudo chgrp pcap /etc/sbin/tcpdump
+  chmod 750 /etc/sbin/tcpdump
+  setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
+fi
 
 cd $cuckoo_dir
 
