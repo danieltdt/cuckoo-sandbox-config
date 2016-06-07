@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# server <cucoo-dir>
+# server <cucoo-dir> <manage.py options>
 
 set -e          # fail fast
 set -o pipefail # fail through pipe
@@ -19,7 +19,7 @@ cd $cuckoo_dir
 source venv/bin/activate
 
 cd web
-python manage.py runserver
+python manage.py runserver "${@:2}"
 
 # exit virtualenv
 deactivate
