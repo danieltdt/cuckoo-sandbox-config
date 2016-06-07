@@ -19,7 +19,11 @@ cd $cuckoo_dir
 source venv/bin/activate
 
 say "running services"
-systemctl restart mongodb.service
+for service in mongodb.service; do
+  if ! systemctl status $service > /dev/null; then
+    systemctl restart $service
+  fi
+done
 
 say "running cuckoo"
 python cuckoo.py

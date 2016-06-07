@@ -13,9 +13,7 @@ cuckoo_dir=${1:-$DEFAULT_CUCKOO_DIR}
 say "bootstraping"
 $config_dir/script/bootstrap
 
-say "installing dependencies"
-sudo pacman --needed --noconfirm -S tcpdump tesseract tesseract-data-por tesseract-data-eng mongodb
-if ! groups $USER | \grep "pcap"; then
+if ! groups $USER | \grep "pcap" > /dev/null; then
   say "add tcpdump permissions for current user"
   sudo groupadd pcap
   sudo usermod -aG pcap $USER

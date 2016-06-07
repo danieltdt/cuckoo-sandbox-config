@@ -14,6 +14,11 @@ python2=`which python2.7`
 mkdir -p $cuckoo_dir
 cd $cuckoo_dir
 
+say "installing dependencies"
+sudo pacman --needed --noconfirm -S python-virtualenv python2-yara python-yara \
+                                    yara tcpdump tesseract tesseract-data-por \
+                                    tesseract-data-eng mongodb | indent
+
 if ! (test -f $cuckoo_dir/cuckoo.py); then
   say "installing cuckoo"
   mkdir -p $cuckoo_dir/tmp
@@ -25,25 +30,22 @@ if ! (test -f $cuckoo_dir/cuckoo.py); then
   rm -rf $cuckoo_dir/tmp
 fi
 
-say "overriding requirements.txt"
-cp $config_dir/requirements.txt $cuckoo_dir/requirements.txt
-
-say "copying config files to $cuckoo_dir/conf"
-cp $config_dir/conf/*.conf "$cuckoo_dir/conf/"
-
-say "installing virtualenv"
-sudo pacman --needed --noconfirm -S python-virtualenv | indent
-
 if ! (test -d $cuckoo_dir/venv); then
   say "creating virtualenv on $cuckoo_dir/venv"
-  virtualenv -p $python2 venv | indent
+  virtualenv --system-site-packages -p $python2 venv | indent
 fi
 
 # enter virtualenv
 source venv/bin/activate
 
+say "overriding requirements.txt"
+cp $config_dir/requirements.txt $cuckoo_dir/requirements.txt
+
 say "installing dependencies"
 pip install -q -r requirements.txt | indent
+
+say "copying config files to $cuckoo_dir/conf"
+cp $config_dir/conf/*.conf "$cuckoo_dir/conf/"
 
 # exit virtualenv
 deactivate
