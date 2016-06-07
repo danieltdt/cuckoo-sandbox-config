@@ -16,7 +16,10 @@ cd $cuckoo_dir
 say "copying config files to $cuckoo_dir"
 cp $config_dir/conf/*.conf "$cuckoo_dir/conf/"
 
-say "installing virtualenv on $cuckoo_dir"
+say "installing virtualenv"
+sudo pacman --needed --noconfirm -S python-virtualenv | indent
+
+say "creating virtualenv on $cuckoo_dir/venv"
 virtualenv -p $python2 venv | indent
 
 # enter virtualenv
