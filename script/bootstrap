@@ -18,9 +18,9 @@ if ! (test -f $cuckoo_dir/cuckoo.py); then
   say "installing cuckoo"
   mkdir -p $cuckoo_dir/tmp
   cd $cuckoo_dir/tmp
-  curl -L -O https://github.com/cuckoosandbox/cuckoo/archive/2.0-rc1.tar.gz
-  tar xf 2.0-rc1.tar.gz | indent
-  cp -R ./cuckoo-2.0-rc1/* $cuckoo_dir
+  curl -L -O https://downloads.cuckoosandbox.org/cuckoo-current.tar.gz
+  tar xf cuckoo-current.tar.gz | indent
+  cp -R ./cuckoo/* $cuckoo_dir
   cd $cuckoo_dir
   rm -rf $cuckoo_dir/tmp
 fi
