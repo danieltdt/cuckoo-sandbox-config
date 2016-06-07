@@ -14,7 +14,7 @@ say "bootstraping"
 $config_dir/script/bootstrap
 
 say "installing dependencies"
-sudo pacman -S tcpdump tesseract tesseract-data-por tesseract-data-end mongodb
+sudo pacman --needed --noconfirm -S tcpdump tesseract tesseract-data-por tesseract-data-eng mongodb
 
 cd $cuckoo_dir
 
